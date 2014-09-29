@@ -1,13 +1,17 @@
 package com.creativecapsuleprojects.testandroid;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.SeekBar;
@@ -28,6 +32,7 @@ public class TextCustomizer extends Activity implements OnClickListener {
 			colorBtn7, colorBtn8;
 	SeekBar textSizeController;
 	CustomTextView customizedTextView;
+	int textViewWidth,textViewHeight;
 
 	private float mScaleSpan = 0;
 	private boolean isScaling = false;
@@ -97,11 +102,28 @@ public class TextCustomizer extends Activity implements OnClickListener {
 		colorBtn7.setOnClickListener(this);
 		colorBtn8.setOnClickListener(this);
 
-		LayoutParams params = (LayoutParams) customizedTextView
-				.getLayoutParams();
-		Log.d(DEBUG_TAG, "Textview Initial Width:" + params.width + "- Height:"
-				+ params.height);
-
+		ViewTreeObserver viewTreeObserver = this.customizedTextView.getViewTreeObserver();
+		viewTreeObserver.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+			
+			@SuppressLint("NewApi")
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onGlobalLayout() {
+				textViewWidth = customizedTextView.getWidth();
+				textViewHeight = customizedTextView.getHeight();
+				Log.d(DEBUG_TAG, "Textview Initial Width:" + textViewWidth + "- Height:"
+						+ textViewHeight);
+				
+				ViewTreeObserver viewTreeObserver = customizedTextView.getViewTreeObserver();
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+					viewTreeObserver.removeGlobalOnLayoutListener(this);
+				} else {
+					viewTreeObserver.removeOnGlobalLayoutListener(this);
+				}
+				
+			}
+		});
+		
 	}
 
 	@Override
@@ -116,16 +138,11 @@ public class TextCustomizer extends Activity implements OnClickListener {
 		switch (clickedView.getId()) {
 		case R.id.text_font_sample_1:
 			Typeface tf1 = Typeface.createFromAsset(getAssets(), fontFile1);
-			// setFontToTextView(customizedTextView, tf1);
-
-			// sample
-			resizeTextViewWithScale(customizedTextView, 5);
+			setFontToTextView(customizedTextView, tf1);
 			break;
 		case R.id.text_font_sample_2:
 			Typeface tf2 = Typeface.createFromAsset(getAssets(), fontFile2);
-			// setFontToTextView(customizedTextView, tf2);
-
-			resizeTextViewWithScale(customizedTextView, -5);
+			setFontToTextView(customizedTextView, tf2);
 			break;
 		case R.id.text_font_sample_3:
 			Typeface tf3 = Typeface.createFromAsset(getAssets(), fontFile3);
@@ -185,8 +202,7 @@ public class TextCustomizer extends Activity implements OnClickListener {
 		textview.setTextColor(color);
 	}
 
-	private class ScaleListener extends
-			ScaleGestureDetector.SimpleOnScaleGestureListener {
+	private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
 
 		@Override
 		public boolean onScale(ScaleGestureDetector detector) {
@@ -221,29 +237,19 @@ public class TextCustomizer extends Activity implements OnClickListener {
 
 	}
 
-	/*
-	 * private float spacing(MotionEvent event) { float x = event.getX(0) -
-	 * event.getX(1); float y = event.getY(0) - event.getY(1); return
-	 * FloatMath.sqrt(x * x + y * y); }
-	 * 
-	 * private void midPoint(PointF point, MotionEvent event) { float x =
-	 * event.getX(0) + event.getX(1); float y = event.getY(0) + event.getY(1);
-	 * point.set(x / 2, y / 2); }
-	 */
-
 	private void resizeTextViewWithScale(TextView textView, float scale) {
 		if (scale > 10 || scale < -10)
 			return;
 
 		LayoutParams params = (LayoutParams) textView
 				.getLayoutParams();
-		Log.d(DEBUG_TAG, "Textview current Width:" + params.width + "- Height:"
-				+ params.height + " scale:" + scale);
-		int newHeight = params.height + (int) scale;
-		int newWidth = params.width + (int) scale;
+		Log.d(DEBUG_TAG, "Textview current Width:" + textViewWidth + "- Height:"
+				+ textViewHeight + " scale:" + scale);
+		textViewHeight = textViewHeight + (int) scale;
+		textViewWidth = textViewWidth + (int) scale;
 
-		params.height = newHeight;
-		params.width = newWidth;
+		params.height = textViewHeight;
+		params.width = textViewWidth;
 		textView.setLayoutParams(params);
 		Log.d(DEBUG_TAG, "Textview updated Width:" + params.width + "- Height:"
 				+ params.height);
