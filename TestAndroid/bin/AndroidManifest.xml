@@ -30,6 +30,10 @@
             android:name="com.creativecapsuleprojects.testandroid.TextCustomizer"
             android:label="@string/title_text_customizer" >
         </activity>
+        <activity
+            android:name="com.creativecapsuleprojects.testandroid.ImageCropper"
+            android:label="@string/title_image_cropper" >
+        </activity>
     </application>
 
 </manifest>

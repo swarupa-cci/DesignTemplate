@@ -130,8 +130,10 @@ public class ImagePickerSample extends Activity implements OnClickListener {
 			Bundle extras = data.getExtras();
 			if (extras != null) {
 				try {
-					Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getTempUri ());
+					Bitmap bitmap = MediaStore.Images.Media.getBitmap(
+							this.getContentResolver(), getTempUri());
 					previewImage.setImageBitmap(bitmap);
+					deleteTempFile();
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -148,6 +150,9 @@ public class ImagePickerSample extends Activity implements OnClickListener {
 	private void doCrop() {
 		final ArrayList<CropOption> cropOptions = new ArrayList<CropOption>();
 
+
+		deleteTempFile();
+		
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setType("image/*");
 
@@ -169,9 +174,11 @@ public class ImagePickerSample extends Activity implements OnClickListener {
 			intent.putExtra("aspectX", 1);
 			intent.putExtra("aspectY", 1);
 			intent.putExtra("scale", true);
+			intent.putExtra("circleCrop", new String(""));
 			intent.putExtra("return-data", false);
-			intent.putExtra (MediaStore.EXTRA_OUTPUT, getTempUri ()); 
-			intent.putExtra ("outputFormat", Bitmap.CompressFormat.JPEG.toString ()); 
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+			intent.putExtra("outputFormat",
+					Bitmap.CompressFormat.JPEG.toString());
 
 			if (size == 1) {
 				Intent i = new Intent(intent);
@@ -191,8 +198,7 @@ public class ImagePickerSample extends Activity implements OnClickListener {
 							res.activityInfo.applicationInfo);
 					co.appIntent = new Intent(intent);
 
-					co.appIntent
-							.setComponent(new ComponentName(
+					co.appIntent.setComponent(new ComponentName(
 									res.activityInfo.packageName,
 									res.activityInfo.name));
 
@@ -232,6 +238,12 @@ public class ImagePickerSample extends Activity implements OnClickListener {
 		}
 	}
 
+	private void deleteTempFile() {
+		File f = new File(Environment.getExternalStorageDirectory(),
+				TEMP_PHOTO_FILE);
+		f.delete();
+	}
+
 	private Uri getTempUri() {
 		return Uri.fromFile(getTempFile());
 	}
@@ -243,7 +255,6 @@ public class ImagePickerSample extends Activity implements OnClickListener {
 			try {
 				f.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				// Toast.makeText (this, R.string.fileIOIssue,
 				// Toast.LENGTH_LONG). Show ();
 			}
