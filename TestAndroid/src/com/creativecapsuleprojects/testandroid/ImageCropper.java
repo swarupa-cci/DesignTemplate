@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.widget.ImageView;
 
 public class ImageCropper extends Activity {
 	
@@ -27,6 +28,8 @@ public class ImageCropper extends Activity {
 	public static final int outputShapeTypeRectangle = 101;
 	public static final int outputShapeTypeSquare = 102;
 	public static final int outputShapeTypeCircle = 103;
+	
+	ImageView sourceImagePreview;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,9 @@ public class ImageCropper extends Activity {
 		
 		try {
 			Bitmap sourceBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), sourceUri);
+			sourceImagePreview = (ImageView) findViewById(R.id.source_image_preview);
+			sourceImagePreview.setImageBitmap(sourceBitmap);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
