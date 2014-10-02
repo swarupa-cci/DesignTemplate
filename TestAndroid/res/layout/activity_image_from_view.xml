@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/container_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp"
+            android:background="@color/yellow"
+            android:text="@string/sample_para" />
+        
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center" >
+        <Button
+            android:id="@+id/save_2_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save 2X" />
+        <Button
+            android:id="@+id/save_3_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save 3X" />
+        <Button
+            android:id="@+id/save_4_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save 4X" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center" >
+        <Button
+            android:id="@+id/save_transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transparent" />
+    </LinearLayout>
+</LinearLayout>

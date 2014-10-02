@@ -36,6 +36,10 @@
             android:name="com.creativecapsuleprojects.testandroid.ImageCropper"
             android:label="@string/title_image_cropper" >
         </activity>
+        <activity
+            android:name="com.creativecapsuleprojects.testandroid.ImageFromView"
+            android:label="@string/title_image_from_view" >
+        </activity>
     </application>
 
 </manifest>

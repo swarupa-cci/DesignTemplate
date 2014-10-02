@@ -6,6 +6,7 @@
     <string name="title_image_picker">ImagePicker</string>
     <string name="title_text_customizer">TextCustomizer</string>
     <string name="title_image_cropper">ImageCropper</string>
+    <string name="title_image_from_view">ImageFromView</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="menu">Menu</string>
@@ -17,5 +18,7 @@
     <string name="font_sample_2">Font 2</string>
     <string name="font_sample_3">Font 3</string>
     <string name="font_sample_4">Font 4</string>
+    
+    <string name="sample_para">More and more developers now try to add different kinds of blurry backgrounds for their custom views. Take a look at awesome Muzei app by +RomanNurik or Yahoo Weather app. I really like what they did with the design there.I was inspired to write this article by set of blog posts from here (by Mark Allison). So the first part of this post will be really similar to Mark\'s post. But I will try to go even further.Renderscript.\n\n The most popular answer to questions like "how dow I implement blur in Android" is - Renderscript. This is very powerful and optimized "engine" to work with graphics. I will not try to explain how it works under the hood (since I don\'t know either :) and this is definitely out of scope for this post).</string>
 
 </resources>

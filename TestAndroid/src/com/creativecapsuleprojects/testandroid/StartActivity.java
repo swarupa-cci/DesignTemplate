@@ -36,8 +36,8 @@ public class StartActivity extends Activity implements OnItemClickListener {
 		classes.add("TextCustomizer");
 		options.add("Text Customizer.");
 
-		classes.add("WaitForit");
-		options.add("Wait For it.");
+		classes.add("ImageFromView");
+		options.add("Image From View.");
 
 		classes.add("WaitForit");
 		options.add("Wait For it.");
