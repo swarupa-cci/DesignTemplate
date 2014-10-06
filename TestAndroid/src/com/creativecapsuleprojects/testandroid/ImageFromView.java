@@ -42,7 +42,7 @@ public class ImageFromView extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				saveImageWithScale(6);
+				saveImageWithScale(2);
 			}
 		});
 
@@ -168,7 +168,6 @@ public class ImageFromView extends Activity {
 		        rs, overlayAlloc.getElement());
 		 
 		    blur.setInput(overlayAlloc);
-		 
 		    blur.setRadius(radius);
 		 
 		    blur.forEach(overlayAlloc);

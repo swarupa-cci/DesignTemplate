@@ -1086,9 +1086,10 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int circle_frame=0x7f020057;
-        public static final int highlight=0x7f020058;
-        public static final int ic_launcher=0x7f020059;
-        public static final int image_1=0x7f02005a;
+        public static final int circular_image_view=0x7f020058;
+        public static final int highlight=0x7f020059;
+        public static final int ic_launcher=0x7f02005a;
+        public static final int image_1=0x7f02005b;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;

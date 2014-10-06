@@ -126,7 +126,8 @@ public class ImagePickerSample extends Activity implements OnClickListener {
 
 		case PICK_FROM_FILE:
 			mImageCaptureUri = data.getData();
-			doCrop();
+			//doCrop();
+			initImageCropper();
 			break;
 
 		case CROP_FROM_CAMERA:
@@ -209,7 +210,7 @@ public class ImagePickerSample extends Activity implements OnClickListener {
 			intent.putExtra("return-data", false);
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageCroppedUri);
 			intent.putExtra("outputFormat",
-					Bitmap.CompressFormat.JPEG.toString());
+					Bitmap.CompressFormat.PNG.toString());
 
 			if (size == 1) {
 				Intent i = new Intent(intent);
@@ -273,14 +274,14 @@ public class ImagePickerSample extends Activity implements OnClickListener {
 		mImageCroppedUri = Uri.fromFile(new File(Environment
 				.getExternalStorageDirectory(), TEMP_PHOTO_FILE
 				+ String.valueOf(System.currentTimeMillis())
-				+ ".jpg"));
+				+ ".png"));
 		Intent intent = new Intent(this, ImageCropper.class);
 		intent.putExtra(ImageCropper.IMAGE_CROPPER_OUTPUT_X, 400);
 		intent.putExtra(ImageCropper.IMAGE_CROPPER_OUTPUT_Y, 300);
 		intent.putExtra(ImageCropper.IMAGE_CROPPER_OUTPUT_SHAPE, ImageCropper.outputShapeTypeCircle);
-		intent.putExtra(ImageCropper.IMAGE_CROPPER_SOURCE_URI, mImageCaptureUri.getEncodedPath());
-		intent.putExtra(ImageCropper.IMAGE_CROPPER_TARGET_URI, mImageCroppedUri.getEncodedPath());
-		Log.d(DEBUG_TAG, "sent URI:"+mImageCroppedUri.getEncodedPath());
+		intent.putExtra(ImageCropper.IMAGE_CROPPER_SOURCE_URI, mImageCaptureUri);
+		intent.putExtra(ImageCropper.IMAGE_CROPPER_TARGET_URI, mImageCroppedUri);
+		Log.d(DEBUG_TAG, "sent input URI:"+mImageCaptureUri.getEncodedPath());
 		startActivityForResult(intent, REQUEST_IMAGE_CROP);
 	}
 	
